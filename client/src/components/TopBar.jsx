@@ -84,11 +84,11 @@ export default function TopBar({ onOpenMobileMenu }) {
             <div className="flex items-center gap-2 min-w-0">
               <img
                 src="/icon.svg"
-                alt="Kadjelo Notes"
+                alt="KadjeloNote"
                 className="w-7 h-7 rounded-lg shadow-xs shrink-0"
               />
               <span className="font-bold text-sm tracking-tight text-[var(--text-primary)] truncate">
-                Kadjelo Notes
+                KadjeloNote
               </span>
             </div>
           </div>

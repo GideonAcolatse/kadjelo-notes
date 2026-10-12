@@ -97,15 +97,15 @@ export default function Sidebar({ mobileOpen, setMobileOpen }) {
           <div className="flex items-center gap-3">
             <img
               src="/icon.svg"
-              alt="Kadjelo Notes"
+              alt="KadjeloNote"
               className="w-9 h-9 rounded-xl shadow-md"
             />
             <div>
               <div className="font-bold text-base tracking-tight leading-none">
-                Kadjelo Notes
+                KadjeloNote
               </div>
               <span className="text-[11px] font-medium text-[var(--text-secondary)]">
-                Second Brain PWA
+                Your Second Brain
               </span>
             </div>
           </div>

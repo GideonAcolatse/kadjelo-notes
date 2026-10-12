@@ -1,13 +1,13 @@
 {
-  "name": "Kadjelo Notes — Second Brain & Notes",
-  "short_name": "Kadjelo Notes",
-  "description": "Capture at the Speed of Thought. Offline-First Apple-Crafted Notes & Knowledge PWA.",
+  "name": "KadjeloNote — Your Second Brain",
+  "short_name": "KadjeloNote",
+  "description": "Your second brain for notes, ideas and a smarter tomorrow. Capture / Organize / Grow.",
   "start_url": "/",
   "scope": "/",
   "display": "standalone",
   "orientation": "portrait-primary",
-  "background_color": "#090A0F",
-  "theme_color": "#6366F1",
+  "background_color": "#120E18",
+  "theme_color": "#371840",
   "categories": ["productivity", "education", "utilities"],
   "icons": [
     {

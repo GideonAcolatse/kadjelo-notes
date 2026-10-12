@@ -79,15 +79,15 @@ export default function PwaInstallPrompt() {
             <div className="flex items-center gap-3">
               <img
                 src="/icon.svg"
-                alt="Kadjelo Notes"
+                alt="KadjeloNote"
                 className="w-10 h-10 rounded-xl shadow-md shrink-0"
               />
               <div className="flex-1 min-w-0">
                 <div className="text-xs font-bold text-[var(--text-primary)] truncate">
-                  Install Kadjelo Notes
+                  Install KadjeloNote
                 </div>
                 <div className="text-[11px] text-[var(--text-secondary)] line-clamp-1">
-                  Add to Home Screen for fast offline notes
+                  Your second brain for notes, ideas and a smarter tomorrow
                 </div>
               </div>
 

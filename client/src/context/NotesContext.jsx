@@ -269,7 +269,7 @@ const INITIAL_SHOWCASE_NOTES = [
 export function NotesProvider({ children }) {
   // Theme & Appearance
   const [themeId, setThemeId] = useState(
-    () => localStorage.getItem(STORAGE_THEME_KEY) || 'indigo'
+    () => localStorage.getItem(STORAGE_THEME_KEY) || 'kadjelo'
   );
   const [colorMode, setColorMode] = useState(
     () => localStorage.getItem(STORAGE_MODE_KEY) || 'dark'
