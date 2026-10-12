@@ -86,6 +86,15 @@ export const apiService = {
     return res;
   },
 
+  async getOrCreateAnonymousSession(deviceId) {
+    const res = await request('/auth/anonymous', {
+      method: 'POST',
+      body: JSON.stringify({ deviceId })
+    });
+    setAuthSession(res.user, res.token);
+    return res;
+  },
+
   async fetchNotes() {
     const res = await request('/notes', { method: 'GET' });
     return res.notes || [];

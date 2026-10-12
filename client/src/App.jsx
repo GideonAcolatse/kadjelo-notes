@@ -24,6 +24,7 @@ import CommandPalette from './components/CommandPalette.jsx';
 import LockModal from './components/LockModal.jsx';
 import AuthModal from './components/AuthModal.jsx';
 import ConfirmDialog from './components/ConfirmDialog.jsx';
+import PwaInstallPrompt from './components/PwaInstallPrompt.jsx';
 
 export default function App() {
   const {
@@ -261,6 +262,7 @@ export default function App() {
       <AuthModal />
       <ConfirmDialog />
       <PomodoroWidget />
+      <PwaInstallPrompt />
 
       {/* Floating Liquid Glass Toast with 5-Second Undo Support */}
       <AnimatePresence>

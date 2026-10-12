@@ -9,3 +9,5 @@ client/.env
 .vercel
 .DS_Store
 *.log
+
+.vercel

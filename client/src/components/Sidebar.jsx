@@ -16,14 +16,13 @@ import {
   Hash,
   Plus,
   Cloud,
-  CloudOff,
   RefreshCw,
-  Smartphone,
   Calendar,
   Layers,
   X,
   Search,
-  Network
+  Network,
+  Menu
 } from 'lucide-react';
 import { useNotes, NOTE_TEMPLATES } from '../context/NotesContext.jsx';
 
@@ -58,9 +57,7 @@ export default function Sidebar({ mobileOpen, setMobileOpen }) {
     setIsCommandPaletteOpen,
     cloudStatus,
     user,
-    setIsAuthModalOpen,
-    syncWithNeonCloud,
-    triggerPwaInstall
+    syncWithNeonCloud
   } = useNotes();
 
   const [newCategoryName, setNewCategoryName] = useState('');
@@ -340,53 +337,45 @@ export default function Sidebar({ mobileOpen, setMobileOpen }) {
         )}
       </div>
 
-      {/* Footer: Neon Cloud Sync & Install PWA */}
-      <div className="pt-3 mt-3 border-t border-[var(--border-subtle)] space-y-2">
-        <div className="flex items-center justify-between p-2.5 rounded-xl bg-[var(--bg-subtle)] border border-[var(--border-subtle)]">
-          <button
-            onClick={() => setIsAuthModalOpen(true)}
-            className="flex items-center gap-2.5 text-left flex-1 min-w-0 pressable"
-          >
-            {user ? (
-              <Cloud size={17} strokeWidth={1.75} className="text-emerald-400 shrink-0" />
-            ) : (
-              <CloudOff
-                size={17}
-                strokeWidth={1.75}
-                className="text-[var(--text-secondary)] shrink-0"
+      {/* Footer: Quiet Neon Cloud Status */}
+      <div className="pt-3 mt-3 border-t border-[var(--border-subtle)]">
+        <div className="flex items-center justify-between px-3 py-2 rounded-xl bg-[var(--bg-subtle)] border border-[var(--border-subtle)]">
+          <div className="flex items-center gap-2.5 min-w-0">
+            <span className="relative flex h-2 w-2 shrink-0">
+              <span
+                className={`animate-ping absolute inline-flex h-full w-full rounded-full opacity-75 ${
+                  cloudStatus.connected ? 'bg-emerald-400' : 'bg-amber-400'
+                }`}
               />
-            )}
+              <span
+                className={`relative inline-flex rounded-full h-2 w-2 ${
+                  cloudStatus.connected ? 'bg-emerald-500' : 'bg-amber-500'
+                }`}
+              />
+            </span>
             <div className="min-w-0">
-              <div className="text-xs font-semibold truncate">
-                {user ? user.name : 'Local-First Vault'}
+              <div className="text-xs font-semibold text-[var(--text-primary)] truncate">
+                {cloudStatus.connected ? 'Neon Cloud Connected' : 'Local Storage Mode'}
               </div>
               <div className="text-[10px] text-[var(--text-muted)] truncate">
-                {user ? 'Neon Cloud Active' : 'Tap to connect Neon DB'}
+                {user ? user.name : 'PostgreSQL Serverless'}
               </div>
             </div>
-          </button>
-          {user && (
-            <button
-              onClick={syncWithNeonCloud}
-              className="p-1.5 rounded-lg hover:bg-[var(--accent-soft)] text-[var(--text-secondary)] pressable"
-              title="Sync with Neon PostgreSQL"
-            >
-              <RefreshCw
-                size={14}
-                strokeWidth={1.75}
-                className={cloudStatus.syncing ? 'animate-spin text-[var(--accent-primary)]' : ''}
-              />
-            </button>
-          )}
-        </div>
+          </div>
 
-        <button
-          onClick={triggerPwaInstall}
-          className="w-full flex items-center justify-center gap-2 px-3 py-2 rounded-xl text-xs font-semibold bg-[var(--bg-subtle)] hover:bg-[var(--accent-soft)] border border-[var(--border-subtle)] text-[var(--text-primary)] pressable"
-        >
-          <Smartphone size={15} strokeWidth={1.75} className="text-[var(--accent-primary)]" />
-          Install Kadjelo Notes on Phone
-        </button>
+          <button
+            onClick={syncWithNeonCloud}
+            className="p-1.5 rounded-lg hover:bg-[var(--accent-soft)] text-[var(--text-secondary)] hover:text-[var(--text-primary)] pressable"
+            title="Sync with Neon PostgreSQL"
+            aria-label="Sync with Neon Cloud"
+          >
+            <RefreshCw
+              size={14}
+              strokeWidth={1.75}
+              className={cloudStatus.syncing ? 'animate-spin text-[var(--accent-primary)]' : ''}
+            />
+          </button>
+        </div>
       </div>
     </div>
   );
@@ -464,10 +453,15 @@ export default function Sidebar({ mobileOpen, setMobileOpen }) {
 
         <button
           onClick={() => setMobileOpen(true)}
-          className="flex flex-col items-center justify-center min-w-[52px] min-h-[44px] rounded-xl text-[var(--text-secondary)] pressable"
+          className={`flex flex-col items-center justify-center min-w-[52px] min-h-[44px] rounded-xl pressable ${
+            mobileOpen
+              ? 'text-[var(--accent-primary)] font-semibold'
+              : 'text-[var(--text-secondary)]'
+          }`}
+          aria-label="Open navigation menu and categories"
         >
-          <Layers size={19} strokeWidth={1.75} />
-          <span className="text-[10px] font-semibold mt-0.5">Vault</span>
+          <Menu size={20} strokeWidth={1.75} />
+          <span className="text-[10px] font-semibold mt-0.5">Menu</span>
         </button>
       </nav>
     </>

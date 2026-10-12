@@ -105,3 +105,40 @@ export async function getCurrentUser(req, res) {
     return res.status(500).json({ error: err.message });
   }
 }
+
+export async function getOrCreateAnonymousSession(req, res) {
+  try {
+    await initializeDatabase();
+    const sql = getSql();
+    if (!sql) {
+      return res.status(503).json({ error: 'Neon DB is not configured' });
+    }
+
+    const { deviceId = 'default_device' } = req.body || {};
+    const cleanDeviceId = String(deviceId).replace(/[^a-zA-Z0-9_-]/g, '').slice(0, 48) || 'default_device';
+    const anonEmail = `device_${cleanDeviceId}@kadjelo.cloud`;
+
+    let rows = await sql`
+      SELECT id, name, email, created_at
+      FROM users
+      WHERE email = ${anonEmail}
+    `;
+
+    let user;
+    if (rows.length === 0) {
+      const created = await sql`
+        INSERT INTO users (name, email, password_hash)
+        VALUES ('Kadjelo Workspace', ${anonEmail}, 'auto-provisioned-session')
+        RETURNING id, name, email, created_at
+      `;
+      user = created[0];
+    } else {
+      user = rows[0];
+    }
+
+    const token = generateToken(user);
+    return res.json({ user, token, autoProvisioned: true });
+  } catch (err) {
+    return res.status(500).json({ error: `Session error: ${err.message}` });
+  }
+}

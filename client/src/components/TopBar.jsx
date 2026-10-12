@@ -15,7 +15,8 @@ import {
   Download,
   FilePlus2,
   Check,
-  Trash2
+  Trash2,
+  X
 } from 'lucide-react';
 import {
   useNotes,
@@ -66,18 +67,97 @@ export default function TopBar({ onOpenMobileMenu }) {
   };
 
   return (
-    <header className="sticky top-0 z-30 liquid-glass border-b border-[var(--border-subtle)] px-4 md:px-6 py-3">
-      <div className="flex flex-wrap items-center justify-between gap-3">
-        {/* Left: Mobile Menu + Search Input */}
-        <div className="flex items-center gap-2.5 flex-1 min-w-[220px] max-w-xl">
-          <button
-            onClick={onOpenMobileMenu}
-            className="md:hidden p-2.5 rounded-xl bg-[var(--bg-subtle)] border border-[var(--border-subtle)] pressable"
-            aria-label="Open menu"
-          >
-            <Menu size={18} strokeWidth={1.75} />
-          </button>
+    <header className="sticky top-0 z-30 liquid-glass border-b border-[var(--border-subtle)] px-4 md:px-6 py-2.5 md:py-3">
+      {/* MOBILE HEADER (< md): Prominent Hamburger Button + Brand + Actions + Search */}
+      <div className="md:hidden flex flex-col gap-2">
+        <div className="flex items-center justify-between gap-2">
+          {/* Mobile Left: Dedicated Prominent Hamburger Button & Brand */}
+          <div className="flex items-center gap-2.5 min-w-0">
+            <button
+              onClick={onOpenMobileMenu}
+              className="flex items-center justify-center w-10 h-10 rounded-xl bg-[var(--bg-subtle)] border border-[var(--border-subtle)] text-[var(--text-primary)] hover:border-[var(--accent-primary)] pressable shadow-xs shrink-0"
+              aria-label="Open navigation sidebar"
+            >
+              <Menu size={20} strokeWidth={2} />
+            </button>
 
+            <div className="flex items-center gap-2 min-w-0">
+              <img
+                src="/icon.svg"
+                alt="Kadjelo Notes"
+                className="w-7 h-7 rounded-lg shadow-xs shrink-0"
+              />
+              <span className="font-bold text-sm tracking-tight text-[var(--text-primary)] truncate">
+                Kadjelo Notes
+              </span>
+            </div>
+          </div>
+
+          {/* Mobile Right: Theme Switcher & Quick New Note */}
+          <div className="flex items-center gap-2 shrink-0">
+            <button
+              onClick={() => {
+                setShowThemeMenu((v) => !v);
+                setShowTemplateMenu(false);
+              }}
+              className="p-2 rounded-xl bg-[var(--bg-subtle)] border border-[var(--border-subtle)] text-[var(--text-secondary)] pressable"
+              title="Appearance & Theme"
+              aria-label="Theme settings"
+            >
+              <Palette size={16} strokeWidth={1.75} />
+            </button>
+
+            {activeNav === 'trash' ? (
+              <button
+                onClick={emptyTrash}
+                className="p-2 rounded-xl bg-rose-500/20 text-rose-300 pressable"
+                title="Empty Trash"
+              >
+                <Trash2 size={16} strokeWidth={1.75} />
+              </button>
+            ) : (
+              <button
+                onClick={handleNewNote}
+                className="flex items-center justify-center w-8 h-8 rounded-xl btn-accent pressable shadow-sm"
+                aria-label="Create note"
+                title="Create new note"
+              >
+                <Plus size={18} strokeWidth={2.25} />
+              </button>
+            )}
+          </div>
+        </div>
+
+        {/* Mobile Search Row */}
+        <div className="relative w-full">
+          <Search
+            size={15}
+            strokeWidth={1.75}
+            className="absolute left-3 top-1/2 -translate-y-1/2 text-[var(--text-muted)]"
+          />
+          <input
+            type="search"
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            placeholder="Search titles, #tags, checklists..."
+            className="w-full pl-8 pr-8 py-1.5 rounded-xl bg-[var(--bg-subtle)] border border-[var(--border-subtle)] text-xs text-[var(--text-primary)] placeholder:text-[var(--text-muted)] focus:outline-none focus:border-[var(--accent-primary)] transition-colors"
+          />
+          {searchQuery && (
+            <button
+              onClick={() => setSearchQuery('')}
+              className="absolute right-2.5 top-1/2 -translate-y-1/2 p-0.5 text-[var(--text-muted)] hover:text-[var(--text-primary)]"
+              aria-label="Clear search"
+            >
+              <X size={13} strokeWidth={2} />
+            </button>
+          )}
+        </div>
+      </div>
+
+      {/* DESKTOP HEADER (>= md): Single Streamlined Horizontal Bar */}
+      <div className="hidden md:flex items-center justify-between gap-3">
+        {/* Left: Search Input + Command Palette Shortcut */}
+        <div className="flex items-center gap-2.5 flex-1 min-w-[220px] max-w-xl">
           <div className="relative flex-1">
             <Search
               size={16}
@@ -91,14 +171,24 @@ export default function TopBar({ onOpenMobileMenu }) {
               placeholder="Search titles, keywords, #tags, checklists..."
               className="w-full pl-9 pr-20 py-2 rounded-xl bg-[var(--bg-subtle)] border border-[var(--border-subtle)] text-sm text-[var(--text-primary)] placeholder:text-[var(--text-muted)] focus:outline-none focus:border-[var(--accent-primary)] transition-colors"
             />
-            <button
-              onClick={() => setIsCommandPaletteOpen(true)}
-              className="hidden sm:inline-flex items-center gap-1 absolute right-2.5 top-1/2 -translate-y-1/2 px-2 py-0.5 rounded-md bg-[var(--bg-card)] border border-[var(--border-subtle)] text-[11px] font-semibold text-[var(--text-secondary)] pressable"
-              title="Open Command Palette (Ctrl+K)"
-            >
-              <Command size={11} strokeWidth={2} />
-              <span>K</span>
-            </button>
+            {searchQuery ? (
+              <button
+                onClick={() => setSearchQuery('')}
+                className="absolute right-3 top-1/2 -translate-y-1/2 p-1 text-[var(--text-muted)] hover:text-[var(--text-primary)]"
+                aria-label="Clear search"
+              >
+                <X size={14} strokeWidth={2} />
+              </button>
+            ) : (
+              <button
+                onClick={() => setIsCommandPaletteOpen(true)}
+                className="hidden sm:inline-flex items-center gap-1 absolute right-2.5 top-1/2 -translate-y-1/2 px-2 py-0.5 rounded-md bg-[var(--bg-card)] border border-[var(--border-subtle)] text-[11px] font-semibold text-[var(--text-secondary)] pressable"
+                title="Open Command Palette (Ctrl+K)"
+              >
+                <Command size={11} strokeWidth={2} />
+                <span>K</span>
+              </button>
+            )}
           </div>
         </div>
 

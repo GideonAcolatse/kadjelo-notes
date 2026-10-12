@@ -383,28 +383,61 @@ export function NotesProvider({ children }) {
     }, 5200);
   }, []);
 
-  // Check Backend / Neon DB Health & Sync on Mount
+  // Check Backend / Neon DB Health & Seamless Sync on Mount
   useEffect(() => {
     let mounted = true;
     async function initCloud() {
-      const health = await apiService.checkHealth();
-      if (!mounted) return;
-      setCloudStatus((prev) => ({
-        ...prev,
-        connected: Boolean(health.connected),
-        mode: health.mode || 'local-first',
-        message: health.message || 'Local-First Mode'
-      }));
+      try {
+        const health = await apiService.checkHealth();
+        if (!mounted) return;
+        const isDbConnected = Boolean(health.connected);
 
-      if (health.connected && getStoredToken()) {
-        try {
-          const remoteNotes = await apiService.fetchNotes();
-          if (mounted && remoteNotes.length > 0) {
-            setNotes(remoteNotes);
+        setCloudStatus((prev) => ({
+          ...prev,
+          connected: isDbConnected,
+          mode: health.mode || 'local-first',
+          message: health.message || (isDbConnected ? 'Connected to Neon PostgreSQL' : 'Local Storage Mode')
+        }));
+
+        if (isDbConnected) {
+          let token = getStoredToken();
+          if (!token) {
+            let deviceId = localStorage.getItem('kadjelo_device_id');
+            if (!deviceId) {
+              deviceId = 'dev_' + Math.random().toString(36).substring(2, 9) + Date.now().toString(36);
+              localStorage.setItem('kadjelo_device_id', deviceId);
+            }
+            try {
+              const sessionRes = await apiService.getOrCreateAnonymousSession(deviceId);
+              if (sessionRes?.user) {
+                setUser(sessionRes.user);
+              }
+              token = sessionRes?.token;
+            } catch (err) {
+              console.warn('Anonymous Neon DB session init:', err);
+            }
           }
-        } catch {
-          // Keep local notes if token expired
+
+          if (token && mounted) {
+            try {
+              const remoteNotes = await apiService.fetchNotes();
+              if (mounted && Array.isArray(remoteNotes) && remoteNotes.length > 0) {
+                setNotes(remoteNotes);
+              } else if (mounted) {
+                // If remote is empty, push initial showcase or local notes to Neon Cloud
+                const saved = localStorage.getItem(STORAGE_NOTES_KEY);
+                const currentNotes = saved ? JSON.parse(saved) : INITIAL_SHOWCASE_NOTES;
+                if (currentNotes?.length > 0) {
+                  await apiService.syncLocalToCloud(currentNotes);
+                }
+              }
+            } catch {
+              // Graceful fallback to local notes
+            }
+          }
         }
+      } catch (err) {
+        console.warn('Backend connection notice:', err);
       }
     }
     initCloud();
