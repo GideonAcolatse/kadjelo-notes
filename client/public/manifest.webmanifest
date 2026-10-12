@@ -1,0 +1,34 @@
+{
+  "name": "Kadjelo Notes — Second Brain & Notes",
+  "short_name": "Kadjelo Notes",
+  "description": "Capture at the Speed of Thought. Offline-First Apple-Crafted Notes & Knowledge PWA.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "background_color": "#090A0F",
+  "theme_color": "#6366F1",
+  "categories": ["productivity", "education", "utilities"],
+  "icons": [
+    {
+      "src": "/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "New Quick Note",
+      "short_name": "New Note",
+      "description": "Create a new note immediately",
+      "url": "/?action=new"
+    },
+    {
+      "name": "Today's Scratchpad",
+      "short_name": "Daily Note",
+      "description": "Open today's daily scratchpad",
+      "url": "/?action=daily"
+    }
+  ]
+}

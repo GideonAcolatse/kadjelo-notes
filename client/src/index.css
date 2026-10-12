@@ -1,0 +1,399 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ==========================================================================
+   Kadjelo Notes — Apple Design & iOS 26 Liquid Glass Token Engine
+   ========================================================================== */
+
+:root,
+[data-theme='indigo'][data-mode='dark'] {
+  --bg-canvas: #090a0f;
+  --bg-elevated: #11131c;
+  --bg-subtle: rgba(255, 255, 255, 0.04);
+  --bg-glass-chrome: rgba(17, 19, 28, 0.72);
+  --bg-glass-heavy: rgba(14, 16, 24, 0.84);
+  --bg-card: rgba(24, 27, 38, 0.78);
+  --bg-card-hover: rgba(31, 35, 49, 0.88);
+  --text-primary: #f8fafc;
+  --text-secondary: #94a3b8;
+  --text-muted: #64748b;
+  --accent-primary: #6366f1;
+  --accent-secondary: #8b5cf6;
+  --accent-soft: rgba(99, 102, 241, 0.16);
+  --border-subtle: rgba(255, 255, 255, 0.08);
+  --border-specular: rgba(255, 255, 255, 0.14);
+  --shadow-card: 0 10px 30px -10px rgba(0, 0, 0, 0.55);
+  --shadow-floating: 0 24px 48px -12px rgba(0, 0, 0, 0.7);
+}
+
+[data-theme='indigo'][data-mode='light'] {
+  --bg-canvas: #f4f6fb;
+  --bg-elevated: #ffffff;
+  --bg-subtle: rgba(15, 23, 42, 0.045);
+  --bg-glass-chrome: rgba(255, 255, 255, 0.78);
+  --bg-glass-heavy: rgba(255, 255, 255, 0.9);
+  --bg-card: rgba(255, 255, 255, 0.9);
+  --bg-card-hover: rgba(255, 255, 255, 0.98);
+  --text-primary: #0f172a;
+  --text-secondary: #475569;
+  --text-muted: #64748b;
+  --accent-primary: #4f46e5;
+  --accent-secondary: #7c3aed;
+  --accent-soft: rgba(79, 70, 229, 0.11);
+  --border-subtle: rgba(15, 23, 42, 0.08);
+  --border-specular: rgba(255, 255, 255, 0.75);
+  --shadow-card: 0 8px 24px -8px rgba(15, 23, 42, 0.08);
+  --shadow-floating: 0 20px 44px -12px rgba(15, 23, 42, 0.16);
+}
+
+/* Theme 2: Emerald & Slate Studio */
+[data-theme='emerald'][data-mode='dark'] {
+  --bg-canvas: #07110e;
+  --bg-elevated: #0e1f1a;
+  --bg-subtle: rgba(255, 255, 255, 0.04);
+  --bg-glass-chrome: rgba(13, 27, 22, 0.74);
+  --bg-glass-heavy: rgba(10, 22, 18, 0.86);
+  --bg-card: rgba(19, 37, 31, 0.78);
+  --bg-card-hover: rgba(24, 46, 39, 0.88);
+  --text-primary: #f0fdf4;
+  --text-secondary: #94a3b8;
+  --text-muted: #64748b;
+  --accent-primary: #10b981;
+  --accent-secondary: #14b8a6;
+  --accent-soft: rgba(16, 185, 129, 0.16);
+  --border-subtle: rgba(255, 255, 255, 0.08);
+  --border-specular: rgba(255, 255, 255, 0.14);
+  --shadow-card: 0 10px 30px -10px rgba(0, 0, 0, 0.6);
+  --shadow-floating: 0 24px 48px -12px rgba(0, 0, 0, 0.72);
+}
+
+[data-theme='emerald'][data-mode='light'] {
+  --bg-canvas: #f2f9f6;
+  --bg-elevated: #ffffff;
+  --bg-subtle: rgba(6, 78, 59, 0.05);
+  --bg-glass-chrome: rgba(255, 255, 255, 0.8);
+  --bg-glass-heavy: rgba(255, 255, 255, 0.92);
+  --bg-card: rgba(255, 255, 255, 0.92);
+  --bg-card-hover: #ffffff;
+  --text-primary: #062e22;
+  --text-secondary: #3f6256;
+  --text-muted: #64748b;
+  --accent-primary: #059669;
+  --accent-secondary: #0d9488;
+  --accent-soft: rgba(5, 150, 105, 0.12);
+  --border-subtle: rgba(6, 78, 59, 0.09);
+  --border-specular: rgba(255, 255, 255, 0.8);
+  --shadow-card: 0 8px 24px -8px rgba(6, 78, 59, 0.08);
+  --shadow-floating: 0 20px 44px -12px rgba(6, 78, 59, 0.16);
+}
+
+/* Theme 3: Amber & Warm Titanium (Apple Notes Heritage) */
+[data-theme='amber'][data-mode='dark'] {
+  --bg-canvas: #121110;
+  --bg-elevated: #1c1a17;
+  --bg-subtle: rgba(255, 255, 255, 0.045);
+  --bg-glass-chrome: rgba(28, 26, 23, 0.76);
+  --bg-glass-heavy: rgba(22, 20, 18, 0.88);
+  --bg-card: rgba(36, 33, 30, 0.8);
+  --bg-card-hover: rgba(45, 41, 37, 0.9);
+  --text-primary: #fafaf9;
+  --text-secondary: #a8a29e;
+  --text-muted: #78716c;
+  --accent-primary: #f59e0b;
+  --accent-secondary: #ea580c;
+  --accent-soft: rgba(245, 158, 11, 0.17);
+  --border-subtle: rgba(255, 255, 255, 0.08);
+  --border-specular: rgba(255, 255, 255, 0.14);
+  --shadow-card: 0 10px 30px -10px rgba(0, 0, 0, 0.6);
+  --shadow-floating: 0 24px 48px -12px rgba(0, 0, 0, 0.75);
+}
+
+[data-theme='amber'][data-mode='light'] {
+  --bg-canvas: #faf8f5;
+  --bg-elevated: #ffffff;
+  --bg-subtle: rgba(41, 37, 36, 0.045);
+  --bg-glass-chrome: rgba(252, 249, 244, 0.82);
+  --bg-glass-heavy: rgba(255, 255, 255, 0.92);
+  --bg-card: rgba(255, 255, 255, 0.92);
+  --bg-card-hover: #ffffff;
+  --text-primary: #1c1917;
+  --text-secondary: #57534e;
+  --text-muted: #78716c;
+  --accent-primary: #d97706;
+  --accent-secondary: #b45309;
+  --accent-soft: rgba(217, 119, 6, 0.12);
+  --border-subtle: rgba(41, 37, 36, 0.09);
+  --border-specular: rgba(255, 255, 255, 0.85);
+  --shadow-card: 0 8px 24px -8px rgba(41, 37, 36, 0.08);
+  --shadow-floating: 0 20px 44px -12px rgba(41, 37, 36, 0.15);
+}
+
+/* Theme 4: Cyber Rose & Midnight */
+[data-theme='rose'][data-mode='dark'] {
+  --bg-canvas: #0b0914;
+  --bg-elevated: #151124;
+  --bg-subtle: rgba(255, 255, 255, 0.04);
+  --bg-glass-chrome: rgba(21, 16, 34, 0.74);
+  --bg-glass-heavy: rgba(16, 12, 28, 0.86);
+  --bg-card: rgba(29, 22, 46, 0.78);
+  --bg-card-hover: rgba(38, 29, 59, 0.88);
+  --text-primary: #fff1f2;
+  --text-secondary: #cbd5e1;
+  --text-muted: #64748b;
+  --accent-primary: #f43f5e;
+  --accent-secondary: #06b6d4;
+  --accent-soft: rgba(244, 63, 94, 0.16);
+  --border-subtle: rgba(255, 255, 255, 0.08);
+  --border-specular: rgba(255, 255, 255, 0.14);
+  --shadow-card: 0 10px 30px -10px rgba(0, 0, 0, 0.6);
+  --shadow-floating: 0 24px 48px -12px rgba(0, 0, 0, 0.75);
+}
+
+[data-theme='rose'][data-mode='light'] {
+  --bg-canvas: #fdf4f7;
+  --bg-elevated: #ffffff;
+  --bg-subtle: rgba(136, 19, 55, 0.045);
+  --bg-glass-chrome: rgba(255, 255, 255, 0.8);
+  --bg-glass-heavy: rgba(255, 255, 255, 0.92);
+  --bg-card: rgba(255, 255, 255, 0.92);
+  --bg-card-hover: #ffffff;
+  --text-primary: #1e1b4b;
+  --text-secondary: #475569;
+  --text-muted: #64748b;
+  --accent-primary: #e11d48;
+  --accent-secondary: #0891b2;
+  --accent-soft: rgba(225, 29, 72, 0.11);
+  --border-subtle: rgba(136, 19, 55, 0.09);
+  --border-specular: rgba(255, 255, 255, 0.8);
+  --shadow-card: 0 8px 24px -8px rgba(136, 19, 55, 0.08);
+  --shadow-floating: 0 20px 44px -12px rgba(136, 19, 55, 0.15);
+}
+
+/* ==========================================================================
+   Base Reset & Apple Optical Typography (apple-design §15)
+   ========================================================================== */
+
+* {
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  min-height: 100dvh;
+  background-color: var(--bg-canvas);
+  color: var(--text-primary);
+  font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'SF Pro Text',
+    'Segoe UI', Roboto, Helvetica, Arial, system-ui, sans-serif;
+  font-optical-sizing: auto;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  transition: background-color 240ms ease, color 240ms ease;
+  overflow-x: hidden;
+}
+
+/* Optical Sizing Classes */
+.type-display {
+  font-size: clamp(1.35rem, 2vw, 1.65rem);
+  font-weight: 700;
+  line-height: 1.12;
+  letter-spacing: -0.025em;
+}
+
+.type-editor-title {
+  font-size: clamp(1.25rem, 1.8vw, 1.55rem);
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+}
+
+.type-card-title {
+  font-size: 1.02rem;
+  font-weight: 600;
+  line-height: 1.32;
+  letter-spacing: -0.015em;
+}
+
+.type-body {
+  font-size: 0.94rem;
+  font-weight: 400;
+  line-height: 1.65;
+  letter-spacing: 0em;
+}
+
+.type-micro {
+  font-size: 0.74rem;
+  font-weight: 600;
+  line-height: 1.2;
+  letter-spacing: 0.02em;
+}
+
+/* ==========================================================================
+   iOS 26 Liquid Glass Material Surfaces (apple-design §12)
+   ========================================================================== */
+
+.liquid-glass {
+  background: var(--bg-glass-chrome);
+  backdrop-filter: blur(24px) saturate(180%);
+  -webkit-backdrop-filter: blur(24px) saturate(180%);
+  border: 1px solid var(--border-subtle);
+  box-shadow: inset 0 1px 0 0 var(--border-specular);
+}
+
+.liquid-glass-heavy {
+  background: var(--bg-glass-heavy);
+  backdrop-filter: blur(32px) saturate(190%);
+  -webkit-backdrop-filter: blur(32px) saturate(190%);
+  border: 1px solid var(--border-subtle);
+  box-shadow: var(--shadow-floating), inset 0 1px 0 0 var(--border-specular);
+}
+
+.liquid-card {
+  background: var(--bg-card);
+  backdrop-filter: blur(18px) saturate(160%);
+  -webkit-backdrop-filter: blur(18px) saturate(160%);
+  border: 1px solid var(--border-subtle);
+  box-shadow: var(--shadow-card), inset 0 1px 0 0 var(--border-specular);
+  transition: background-color 180ms ease, border-color 180ms ease,
+    box-shadow 180ms ease;
+}
+
+.liquid-card:hover {
+  background: var(--bg-card-hover);
+}
+
+/* 8 Note Card Tints */
+.note-tint-default {
+  background: var(--bg-card);
+}
+.note-tint-indigo {
+  background: linear-gradient(145deg, rgba(99, 102, 241, 0.16), var(--bg-card));
+  border-color: rgba(99, 102, 241, 0.34);
+}
+.note-tint-emerald {
+  background: linear-gradient(145deg, rgba(16, 185, 129, 0.16), var(--bg-card));
+  border-color: rgba(16, 185, 129, 0.34);
+}
+.note-tint-amber {
+  background: linear-gradient(145deg, rgba(245, 158, 11, 0.16), var(--bg-card));
+  border-color: rgba(245, 158, 11, 0.34);
+}
+.note-tint-rose {
+  background: linear-gradient(145deg, rgba(244, 63, 94, 0.16), var(--bg-card));
+  border-color: rgba(244, 63, 94, 0.34);
+}
+.note-tint-cyan {
+  background: linear-gradient(145deg, rgba(6, 182, 212, 0.16), var(--bg-card));
+  border-color: rgba(6, 182, 212, 0.34);
+}
+.note-tint-violet {
+  background: linear-gradient(145deg, rgba(168, 85, 247, 0.16), var(--bg-card));
+  border-color: rgba(168, 85, 247, 0.34);
+}
+.note-tint-slate {
+  background: linear-gradient(145deg, rgba(100, 116, 139, 0.2), var(--bg-card));
+  border-color: rgba(100, 116, 139, 0.36);
+}
+
+/* ==========================================================================
+   Apple Pointer-Down Immediate Response (apple-design §1)
+   ========================================================================== */
+
+.pressable {
+  cursor: pointer;
+  user-select: none;
+  transition: transform 90ms cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 90ms ease, background-color 140ms ease;
+}
+
+.pressable:active {
+  transform: scale(0.965);
+}
+
+.btn-accent {
+  background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+  color: #ffffff;
+  box-shadow: 0 6px 20px -4px var(--accent-soft),
+    inset 0 1px 0 0 rgba(255, 255, 255, 0.28);
+}
+
+.btn-accent:hover {
+  filter: brightness(1.06);
+}
+
+/* Safe Area Padding for Mobile Standalone PWA */
+.pb-safe {
+  padding-bottom: max(0.75rem, env(safe-area-inset-bottom));
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(148, 163, 184, 0.25);
+  border-radius: 9999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(148, 163, 184, 0.45);
+}
+
+/* 3D Flashcard Flip Utilities */
+.perspective-1000 {
+  perspective: 1000px;
+}
+.preserve-3d {
+  transform-style: preserve-3d;
+}
+.backface-hidden {
+  backface-visibility: hidden;
+}
+.rotate-y-180 {
+  transform: rotateY(180deg);
+}
+
+/* ==========================================================================
+   Accessibility Fallbacks (apple-design §14)
+   ========================================================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 150ms !important;
+    scroll-behavior: auto !important;
+  }
+  .pressable:active {
+    transform: none !important;
+    opacity: 0.85;
+  }
+}
+
+@media (prefers-reduced-transparency: reduce) {
+  .liquid-glass,
+  .liquid-glass-heavy,
+  .liquid-card {
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    background: var(--bg-elevated) !important;
+  }
+}
+
+@media print {
+  .no-print {
+    display: none !important;
+  }
+  body {
+    background: #ffffff !important;
+    color: #000000 !important;
+  }
+}
