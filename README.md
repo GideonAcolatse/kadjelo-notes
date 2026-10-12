@@ -1,5 +1,11 @@
 # Kadjelo Notes — Capture at the Speed of Thought
 
+[![Live App](https://img.shields.io/badge/Vercel-Live%20App-black?logo=vercel)](https://kadjelo-notes.vercel.app)
+[![GitHub](https://img.shields.io/badge/GitHub-Repository-181717?logo=github)](https://github.com/GideonAcolatse/kadjelo-notes)
+
+- **Production App**: [https://kadjelo-notes.vercel.app](https://kadjelo-notes.vercel.app)
+- **GitHub Repository**: [https://github.com/GideonAcolatse/kadjelo-notes](https://github.com/GideonAcolatse/kadjelo-notes)
+
 **Kadjelo Notes** is an installable, offline-first **Progressive Web App (PWA)** and **Second-Brain Workspace** engineered with **React 18 (Vite)**, **Node.js / Express**, **Neon Serverless PostgreSQL**, and **Vercel**, built on the **Apple Design (`apple-design`)** and **iOS 26 Liquid Glass** design system.
 
 ---
