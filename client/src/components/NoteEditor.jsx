@@ -28,7 +28,16 @@ import {
   Bell,
   Link2,
   RotateCcw,
-  KeyRound
+  KeyRound,
+  Bold,
+  Italic,
+  Heading1,
+  Heading2,
+  List,
+  ListOrdered,
+  Code,
+  Quote,
+  CalendarDays
 } from 'lucide-react';
 import { useNotes, NOTE_TINTS } from '../context/NotesContext.jsx';
 import { aiService, getGeminiApiKey, setGeminiApiKey } from '../services/aiService.js';
@@ -88,6 +97,32 @@ export default function NoteEditor({ note, isModal = false, onClose }) {
   const [showKeyConfig, setShowKeyConfig] = useState(false);
 
   const fileInputRef = useRef(null);
+  const textareaRef = useRef(null);
+
+  const insertMarkdown = (prefix, suffix = '', defaultText = '') => {
+    const el = textareaRef.current;
+    if (!el) {
+      const next = (content || '') + prefix + defaultText + suffix;
+      setContent(next);
+      commitFieldChange({ content: next });
+      return;
+    }
+    const start = el.selectionStart ?? (content || '').length;
+    const end = el.selectionEnd ?? start;
+    const current = content || '';
+    const sel = current.substring(start, end);
+    const replacement = sel ? `${prefix}${sel}${suffix}` : `${prefix}${defaultText}${suffix}`;
+    const nextContent = current.substring(0, start) + replacement + current.substring(end);
+    setContent(nextContent);
+    commitFieldChange({ content: nextContent });
+    setTimeout(() => {
+      el.focus();
+      const cursorTarget = sel
+        ? start + replacement.length
+        : start + prefix.length + defaultText.length;
+      el.setSelectionRange(cursorTarget, cursorTarget);
+    }, 10);
+  };
 
   // Sync local editor state when switching active note
   useEffect(() => {
@@ -899,6 +934,135 @@ export default function NoteEditor({ note, isModal = false, onClose }) {
           className="w-full bg-transparent type-editor-title text-[var(--text-primary)] placeholder:text-[var(--text-muted)] focus:outline-none"
         />
 
+        {/* Rich Markdown Formatting Toolbar (for instant 1-tap mobile & desktop styling) */}
+        {(editorTab === 'write' || editorTab === 'split') && (
+          <div className="flex items-center gap-1 p-1 rounded-xl bg-[var(--bg-subtle)] border border-[var(--border-subtle)] overflow-x-auto no-scrollbar flex-wrap">
+            <button
+              type="button"
+              onClick={() => insertMarkdown('**', '**', 'bold text')}
+              className="p-1.5 rounded-lg text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:bg-[var(--bg-card)] pressable"
+              title="Bold (**text**)"
+            >
+              <Bold size={13} strokeWidth={2.2} />
+            </button>
+
+            <button
+              type="button"
+              onClick={() => insertMarkdown('*', '*', 'italic text')}
+              className="p-1.5 rounded-lg text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:bg-[var(--bg-card)] pressable"
+              title="Italic (*text*)"
+            >
+              <Italic size={13} strokeWidth={2.2} />
+            </button>
+
+            <div className="w-[1px] h-3.5 bg-[var(--border-subtle)] mx-0.5" />
+
+            <button
+              type="button"
+              onClick={() => insertMarkdown('\n# ', '\n', 'Heading 1')}
+              className="px-1.5 py-1 rounded-lg text-xs font-bold text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:bg-[var(--bg-card)] pressable"
+              title="Heading 1"
+            >
+              H1
+            </button>
+
+            <button
+              type="button"
+              onClick={() => insertMarkdown('\n## ', '\n', 'Heading 2')}
+              className="px-1.5 py-1 rounded-lg text-xs font-bold text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:bg-[var(--bg-card)] pressable"
+              title="Heading 2"
+            >
+              H2
+            </button>
+
+            <button
+              type="button"
+              onClick={() => insertMarkdown('\n### ', '\n', 'Heading 3')}
+              className="px-1.5 py-1 rounded-lg text-xs font-bold text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:bg-[var(--bg-card)] pressable"
+              title="Heading 3"
+            >
+              H3
+            </button>
+
+            <div className="w-[1px] h-3.5 bg-[var(--border-subtle)] mx-0.5" />
+
+            <button
+              type="button"
+              onClick={() => insertMarkdown('\n- ', '', 'List item')}
+              className="p-1.5 rounded-lg text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:bg-[var(--bg-card)] pressable"
+              title="Bullet List (- item)"
+            >
+              <List size={13} strokeWidth={2} />
+            </button>
+
+            <button
+              type="button"
+              onClick={() => insertMarkdown('\n1. ', '', 'Step item')}
+              className="p-1.5 rounded-lg text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:bg-[var(--bg-card)] pressable"
+              title="Numbered List (1. item)"
+            >
+              <ListOrdered size={13} strokeWidth={2} />
+            </button>
+
+            <button
+              type="button"
+              onClick={() => insertMarkdown('\n> ', '', 'Quote text')}
+              className="p-1.5 rounded-lg text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:bg-[var(--bg-card)] pressable"
+              title="Blockquote (> quote)"
+            >
+              <Quote size={13} strokeWidth={2} />
+            </button>
+
+            <button
+              type="button"
+              onClick={() => insertMarkdown('\n```\n', '\n```\n', '// code snippet')}
+              className="p-1.5 rounded-lg text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:bg-[var(--bg-card)] pressable"
+              title="Code Block (```)"
+            >
+              <Code size={13} strokeWidth={2} />
+            </button>
+
+            <div className="w-[1px] h-3.5 bg-[var(--border-subtle)] mx-0.5" />
+
+            <button
+              type="button"
+              onClick={() => insertMarkdown('[[', ']]', 'Linked Note Title')}
+              className="flex items-center gap-1 px-2 py-1 rounded-lg text-[11px] font-semibold text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:bg-[var(--bg-card)] pressable"
+              title="Insert Wiki-Link [[Note Title]]"
+            >
+              <Link2 size={12} strokeWidth={2} />
+              <span>Wiki-Link</span>
+            </button>
+
+            <button
+              type="button"
+              onClick={() => insertMarkdown('\n', ' :: Definition', 'Term')}
+              className="flex items-center gap-1 px-2 py-1 rounded-lg text-[11px] font-semibold text-emerald-400 hover:bg-emerald-500/10 pressable"
+              title="Create 3D Study Flashcard (Term :: Definition)"
+            >
+              <span>:: Flashcard</span>
+            </button>
+
+            <button
+              type="button"
+              onClick={() =>
+                insertMarkdown(
+                  new Date().toLocaleDateString('en-US', {
+                    month: 'short',
+                    day: 'numeric',
+                    year: 'numeric'
+                  })
+                )
+              }
+              className="flex items-center gap-1 px-2 py-1 rounded-lg text-[11px] font-medium text-[var(--text-muted)] hover:text-[var(--text-primary)] hover:bg-[var(--bg-card)] pressable ml-auto"
+              title="Insert Today's Date"
+            >
+              <CalendarDays size={12} strokeWidth={1.8} />
+              <span className="hidden sm:inline">Date</span>
+            </button>
+          </div>
+        )}
+
         {/* Write / Preview / Split Content Area */}
         <div
           className={
@@ -909,6 +1073,7 @@ export default function NoteEditor({ note, isModal = false, onClose }) {
         >
           {(editorTab === 'write' || editorTab === 'split') && (
             <textarea
+              ref={textareaRef}
               value={content}
               onChange={(e) => {
                 setContent(e.target.value);

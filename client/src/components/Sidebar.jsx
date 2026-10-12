@@ -22,7 +22,8 @@ import {
   X,
   Search,
   Network,
-  Menu
+  Menu,
+  Download
 } from 'lucide-react';
 import { useNotes, NOTE_TEMPLATES } from '../context/NotesContext.jsx';
 
@@ -57,7 +58,8 @@ export default function Sidebar({ mobileOpen, setMobileOpen }) {
     setIsCommandPaletteOpen,
     cloudStatus,
     user,
-    syncWithNeonCloud
+    syncWithNeonCloud,
+    triggerPwaInstall
   } = useNotes();
 
   const [newCategoryName, setNewCategoryName] = useState('');
@@ -137,6 +139,24 @@ export default function Sidebar({ mobileOpen, setMobileOpen }) {
           </span>
         </button>
 
+        {/* 1-Tap Install KadjeloNote PWA Button */}
+        <button
+          onClick={() => {
+            triggerPwaInstall();
+            setMobileOpen(false);
+          }}
+          className="w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl bg-[var(--bg-subtle)] hover:bg-[var(--accent-soft)] border border-[var(--border-subtle)] hover:border-[var(--accent-primary)] text-[var(--text-primary)] pressable shadow-xs transition-colors"
+          title="Install KadjeloNote to your home screen or desktop"
+        >
+          <span className="flex items-center gap-2.5 text-xs font-semibold">
+            <Download size={15} strokeWidth={2} className="text-[var(--accent-primary)]" />
+            Install KadjeloNote
+          </span>
+          <span className="text-[10px] font-bold px-1.5 py-0.5 rounded-full bg-[var(--accent-soft)] text-[var(--accent-primary)] border border-[var(--border-specular)]">
+            PWA
+          </span>
+        </button>
+
         {/* Primary Views */}
         <div>
           <div className="px-2 mb-1.5 text-[11px] font-semibold uppercase tracking-wider text-[var(--text-muted)]">
@@ -178,16 +198,16 @@ export default function Sidebar({ mobileOpen, setMobileOpen }) {
           </nav>
         </div>
 
-        {/* Categories */}
+        {/* Notebooks & Categories */}
         <div>
           <div className="flex items-center justify-between px-2 mb-1.5">
             <span className="text-[11px] font-semibold uppercase tracking-wider text-[var(--text-muted)]">
-              Categories
+              Notebooks &amp; Folders
             </span>
             <button
               onClick={() => setShowAddCategory((v) => !v)}
               className="p-1 rounded-lg hover:bg-[var(--bg-subtle)] text-[var(--text-secondary)] pressable"
-              title="Add custom category"
+              title="Add custom notebook or category"
             >
               <Plus size={14} strokeWidth={2} />
             </button>

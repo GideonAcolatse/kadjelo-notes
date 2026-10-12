@@ -1,4 +1,5 @@
 {
+  "id": "/?source=pwa",
   "name": "KadjeloNote — Your Second Brain",
   "short_name": "KadjeloNote",
   "description": "Your second brain for notes, ideas and a smarter tomorrow. Capture / Organize / Grow.",
@@ -11,10 +12,34 @@
   "categories": ["productivity", "education", "utilities"],
   "icons": [
     {
+      "src": "/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icon-maskable-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "/icon-maskable-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
       "src": "/icon.svg",
       "sizes": "any",
       "type": "image/svg+xml",
-      "purpose": "any maskable"
+      "purpose": "any"
     }
   ],
   "shortcuts": [
@@ -22,13 +47,27 @@
       "name": "New Quick Note",
       "short_name": "New Note",
       "description": "Create a new note immediately",
-      "url": "/?action=new"
+      "url": "/?action=new",
+      "icons": [
+        {
+          "src": "/icon-192.png",
+          "sizes": "192x192",
+          "type": "image/png"
+        }
+      ]
     },
     {
       "name": "Today's Scratchpad",
       "short_name": "Daily Note",
       "description": "Open today's daily scratchpad",
-      "url": "/?action=daily"
+      "url": "/?action=daily",
+      "icons": [
+        {
+          "src": "/icon-192.png",
+          "sizes": "192x192",
+          "type": "image/png"
+        }
+      ]
     }
   ]
 }

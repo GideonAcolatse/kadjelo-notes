@@ -46,7 +46,8 @@ export default function TopBar({ onOpenMobileMenu }) {
     createFromTemplate,
     setIsEditorModalOpen,
     setIsCommandPaletteOpen,
-    emptyTrash
+    emptyTrash,
+    triggerPwaInstall
   } = useNotes();
 
   const [showThemeMenu, setShowThemeMenu] = useState(false);
@@ -122,6 +123,15 @@ export default function TopBar({ onOpenMobileMenu }) {
               aria-label="Theme settings"
             >
               <Palette size={16} strokeWidth={1.75} />
+            </button>
+
+            <button
+              onClick={triggerPwaInstall}
+              className="p-2 rounded-xl bg-[var(--bg-subtle)] border border-[var(--border-subtle)] text-[var(--text-secondary)] hover:text-[var(--text-primary)] pressable"
+              title="Install KadjeloNote app"
+              aria-label="Install App"
+            >
+              <Download size={16} strokeWidth={1.8} className="text-[var(--accent-primary)]" />
             </button>
 
             {activeNav === 'trash' ? (
@@ -282,6 +292,17 @@ export default function TopBar({ onOpenMobileMenu }) {
                 <span className="hidden xl:inline text-xs font-medium">Dark</span>
               </>
             )}
+          </button>
+
+          {/* Desktop Install App Button */}
+          <button
+            onClick={triggerPwaInstall}
+            className="hidden lg:flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-[var(--bg-subtle)] border border-[var(--border-subtle)] hover:border-[var(--accent-primary)] text-xs font-semibold text-[var(--text-secondary)] hover:text-[var(--text-primary)] pressable shadow-xs transition-colors"
+            title="Install KadjeloNote app to your device"
+            aria-label="Install App"
+          >
+            <Download size={14} strokeWidth={2} className="text-[var(--accent-primary)]" />
+            <span>Install App</span>
           </button>
 
           {/* Multi-Theme & Appearance Popover */}
