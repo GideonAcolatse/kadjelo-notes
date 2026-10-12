@@ -21,6 +21,13 @@ export const DEFAULT_CATEGORIES = [
 
 export const THEME_OPTIONS = [
   {
+    id: 'kadjelo',
+    name: 'KadjeloTech Imperial & Amber',
+    subtitle: 'Signature Purple #371840 & Amber #F59E0B',
+    primary: '#371840',
+    secondary: '#f59e0b'
+  },
+  {
     id: 'indigo',
     name: 'Obsidian & Indigo Glass',
     subtitle: 'Electric Indigo & Violet',

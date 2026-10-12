@@ -93,8 +93,25 @@ export default function TopBar({ onOpenMobileMenu }) {
             </div>
           </div>
 
-          {/* Mobile Right: Theme Switcher & Quick New Note */}
-          <div className="flex items-center gap-2 shrink-0">
+          {/* Mobile Right: Dark / Light Mode Switcher + Theme + New Note */}
+          <div className="flex items-center gap-1.5 shrink-0">
+            {/* Direct 1-Tap Dark / Light Mode Toggle */}
+            <button
+              onClick={() => {
+                setColorMode(colorMode === 'dark' ? 'light' : 'dark');
+                if (typeof navigator !== 'undefined' && navigator.vibrate) navigator.vibrate(10);
+              }}
+              className="p-2 rounded-xl bg-[var(--bg-subtle)] border border-[var(--border-subtle)] text-[var(--text-secondary)] pressable"
+              title={colorMode === 'dark' ? 'Switch to Light Mode' : 'Switch to Dark Mode'}
+              aria-label="Toggle Dark and Light Mode"
+            >
+              {colorMode === 'dark' ? (
+                <Sun size={16} strokeWidth={1.8} className="text-amber-400" />
+              ) : (
+                <Moon size={16} strokeWidth={1.8} className="text-indigo-400" />
+              )}
+            </button>
+
             <button
               onClick={() => {
                 setShowThemeMenu((v) => !v);
@@ -243,6 +260,29 @@ export default function TopBar({ onOpenMobileMenu }) {
               </option>
             </select>
           </div>
+
+          {/* Direct 1-Tap Dark / Light Mode Switcher */}
+          <button
+            onClick={() => {
+              setColorMode(colorMode === 'dark' ? 'light' : 'dark');
+              if (typeof navigator !== 'undefined' && navigator.vibrate) navigator.vibrate(10);
+            }}
+            className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-xl bg-[var(--bg-subtle)] border border-[var(--border-subtle)] hover:border-[var(--accent-primary)] text-xs font-semibold text-[var(--text-secondary)] hover:text-[var(--text-primary)] pressable shadow-xs transition-colors"
+            title={colorMode === 'dark' ? 'Switch to Light Mode' : 'Switch to Dark Mode'}
+            aria-label="Toggle Dark and Light Mode"
+          >
+            {colorMode === 'dark' ? (
+              <>
+                <Sun size={15} strokeWidth={2} className="text-amber-400" />
+                <span className="hidden xl:inline text-xs font-medium">Light</span>
+              </>
+            ) : (
+              <>
+                <Moon size={15} strokeWidth={2} className="text-indigo-400" />
+                <span className="hidden xl:inline text-xs font-medium">Dark</span>
+              </>
+            )}
+          </button>
 
           {/* Multi-Theme & Appearance Popover */}
           <div className="relative">
